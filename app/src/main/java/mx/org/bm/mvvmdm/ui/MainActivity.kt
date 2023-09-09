@@ -2,6 +2,7 @@ package mx.org.bm.mvvmdm.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +25,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val myAdapter = AnimesAdapter(animes)
+        val myAdapter = AnimesAdapter(animes){ anime, animesSize ->
+            Toast.makeText(this@MainActivity,
+                "El anime es: ${anime.titulo} con un total de $animesSize",
+                Toast.LENGTH_LONG).show()
+
+        }
         binding.rv.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = myAdapter

@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import mx.org.bm.mvvmdm.data.remote.model.AnimeDto
 import mx.org.bm.mvvmdm.databinding.AnimesElementBinding
 
-class AnimesAdapter(private val animes: MutableList<AnimeDto>): RecyclerView.Adapter<AnimesAdapter.ViewHolder>() {
+class AnimesAdapter(
+    private val animes: MutableList<AnimeDto>,
+    private val onClick: (anime: AnimeDto, animeSize: Int) -> Unit
+): RecyclerView.Adapter<AnimesAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: AnimesElementBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(anime: AnimeDto){
@@ -28,5 +31,9 @@ class AnimesAdapter(private val animes: MutableList<AnimeDto>): RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val anime = animes[position]
         holder.bind(anime)
+
+        holder.itemView.setOnClickListener {
+            onClick(anime, animes.size)
+        }
     }
 }
